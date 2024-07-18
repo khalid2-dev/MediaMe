@@ -2,14 +2,14 @@ package com.mediame.mediame.model;
 
 public class Response {
 	
-	private User entity;
+	private User user;
 	private String message;
 	
-	public User getEntity() {
-		return entity;
+	public User getUser() {
+		return user;
 	}
-	public void setEntity(User entity) {
-		this.entity = entity;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	public String getMessage() {
 		return message;

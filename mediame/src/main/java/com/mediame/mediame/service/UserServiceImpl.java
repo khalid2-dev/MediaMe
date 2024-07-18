@@ -7,6 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Service;
 
 import com.mediame.mediame.entity.UserEntity;
+import com.mediame.mediame.model.LoginRequest;
+import com.mediame.mediame.model.Response;
 import com.mediame.mediame.model.UpdateRequest;
 import com.mediame.mediame.model.User;
 import com.mediame.mediame.repository.UserRepository;
@@ -87,6 +89,31 @@ public class UserServiceImpl {
 			return "User with email: "+request.getUpdateRequest().getEmail()+" has been updated";
 		}
 		return "User with email: "+request.getUpdateRequest().getEmail()+" does not exist!";
+	}
+	
+	public Response userLogin(LoginRequest login) {
+		Response response = new Response();
+		UserEntity entity = findUser(login.getEmail());
+		User user = new User();
+		if(entity != null) {
+			if(entity.getPassword().equals(login.getPassword())) {
+				user.setFirstName(entity.getFirstName());
+				user.setLastName(entity.getLastName());
+				user.setAddress(entity.getAddress());
+				user.setPhone(entity.getPhone());
+				user.setUserType(entity.getUserType());
+				response.setUser(user);
+				response.setMessage("Welcome "+user.getFirstName());
+				return response;
+			} else {
+				response.setUser(null);
+				response.setMessage("Invalid log in details!");
+				return response;
+			}
+		}
+		response.setUser(null);
+		response.setMessage("Invalid log in details!");
+		return response;
 	}
 
 }

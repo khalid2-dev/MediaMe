@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mediame.mediame.entity.UserEntity;
+import com.mediame.mediame.model.LoginRequest;
+import com.mediame.mediame.model.Response;
 import com.mediame.mediame.model.UpdateRequest;
 import com.mediame.mediame.model.User;
 import com.mediame.mediame.service.UserServiceImpl;
@@ -47,6 +49,11 @@ public class UserController {
 		} catch(IOException e) {
 			return "Error updating user: " + e.getMessage();
 		}
+	}
+	
+	@PostMapping("/login")
+	public Response userLogin(@RequestBody LoginRequest request) {
+		return userService.userLogin(request);
 	}
 
 }
