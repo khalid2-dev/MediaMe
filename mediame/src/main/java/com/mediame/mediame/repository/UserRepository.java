@@ -1,11 +1,23 @@
 package com.mediame.mediame.repository;
 
 import com.mediame.mediame.entity.UserEntity;
+import com.mediame.mediame.model.User;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Integer> {
+public interface UserRepository extends JpaRepository<UserEntity, String> {
+	
+	@Query("select u from UserEntity u where u.email = ?1")
+	UserEntity findByEmail(String email);
+	
+	@Query("delete from UserEntity u where u.email = ?1")
+	UserEntity deleteByEmail(String email);
+
 }
 
 

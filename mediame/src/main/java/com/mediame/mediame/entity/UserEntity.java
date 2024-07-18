@@ -11,9 +11,9 @@ import jakarta.persistence.Table;
 @Table(name="USER_DETAILS")
 public class UserEntity {
 	
-	@Id()
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column (name="first_name")
 	private String firstName;
@@ -30,7 +30,7 @@ public class UserEntity {
 	@Column (name="user_type")
 	private String userType;
 	
-	@Column (name="email")
+	@Column (name="email", unique=true)
 	private String email;
 	
 	@Column (name="username")
