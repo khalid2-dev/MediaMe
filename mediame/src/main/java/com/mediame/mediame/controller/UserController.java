@@ -4,6 +4,9 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +21,7 @@ import com.mediame.mediame.model.UpdateRequest;
 import com.mediame.mediame.model.User;
 import com.mediame.mediame.service.UserServiceImpl;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @ComponentScan("com.mediame.mediame.service.UserServiceImpl")
 public class UserController {
@@ -52,8 +56,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public Response userLogin(@RequestBody LoginRequest request) {
-		return userService.userLogin(request);
+	public ResponseEntity<Response> userLogin(@RequestBody LoginRequest request) {
+		Response response = userService.userLogin(request);
+		if(response.isStatus() == true) {
+			return new ResponseEntity(response, HttpStatus.OK);
+		}
+		return new ResponseEntity("Invalid login details", HttpStatus.UNAUTHORIZED);
 	}
 
 }

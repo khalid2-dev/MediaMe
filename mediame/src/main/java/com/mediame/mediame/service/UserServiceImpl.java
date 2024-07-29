@@ -104,15 +104,18 @@ public class UserServiceImpl {
 				user.setUserType(entity.getUserType());
 				response.setUser(user);
 				response.setMessage("Welcome "+user.getFirstName());
+				response.setStatus(true);
 				return response;
 			} else {
 				response.setUser(null);
 				response.setMessage("Invalid log in details!");
+				response.setStatus(false);
 				return response;
 			}
 		}
 		response.setUser(null);
 		response.setMessage("Invalid log in details!");
+		response.setStatus(false);
 		return response;
 	}
 
