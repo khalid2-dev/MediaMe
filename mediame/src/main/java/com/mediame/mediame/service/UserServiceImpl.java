@@ -108,13 +108,13 @@ public class UserServiceImpl {
 				return response;
 			} else {
 				response.setUser(null);
-				response.setMessage("Invalid log in details!");
+				response.setMessage("Invalid log in details! Invalid Email ID and Password combination.");
 				response.setStatus(false);
 				return response;
 			}
 		}
 		response.setUser(null);
-		response.setMessage("Invalid log in details!");
+		response.setMessage("No such account with this email!");
 		response.setStatus(false);
 		return response;
 	}

@@ -61,7 +61,7 @@ public class UserController {
 		if(response.isStatus() == true) {
 			return new ResponseEntity(response, HttpStatus.OK);
 		}
-		return new ResponseEntity("Invalid login details", HttpStatus.UNAUTHORIZED);
+		return new ResponseEntity(response.getMessage(), HttpStatus.UNAUTHORIZED);
 	}
 
 }
