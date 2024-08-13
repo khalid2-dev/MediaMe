@@ -1,15 +1,17 @@
 package com.mediame.mediame.model;
 
+import java.util.List;
+
 public class Response {
 	
-	private User user;
+	private List<User> user;
 	private String message;
 	private boolean status;
 	
-	public User getUser() {
+	public List<User> getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(List<User> user) {
 		this.user = user;
 	}
 	public String getMessage() {

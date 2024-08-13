@@ -12,6 +12,21 @@ public class User {
 	private String username;
 	private String password;
 	
+	public User(){
+		
+	}
+	
+	public User(String firstName, String lastName, String address, String phone, String userType, String email, String username, String password){
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.address = address;
+		this.phone = phone;
+		this.userType = userType;
+		this.email = email;
+		this.username = username;
+		this.password = password;
+	}
+	
 	public int getId() {
 		return id;
 	}

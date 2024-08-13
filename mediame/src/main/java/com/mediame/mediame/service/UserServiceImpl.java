@@ -1,6 +1,9 @@
 package com.mediame.mediame.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -95,6 +98,7 @@ public class UserServiceImpl {
 		Response response = new Response();
 		UserEntity entity = findUser(login.getEmail());
 		User user = new User();
+		List<User> userList = new ArrayList<>();
 		if(entity != null) {
 			if(entity.getPassword().equals(login.getPassword())) {
 				user.setFirstName(entity.getFirstName());
@@ -102,7 +106,8 @@ public class UserServiceImpl {
 				user.setAddress(entity.getAddress());
 				user.setPhone(entity.getPhone());
 				user.setUserType(entity.getUserType());
-				response.setUser(user);
+				userList.add(user);
+				response.setUser(userList);
 				response.setMessage("Welcome "+user.getFirstName());
 				response.setStatus(true);
 				return response;
@@ -116,6 +121,23 @@ public class UserServiceImpl {
 		response.setUser(null);
 		response.setMessage("No such account with this email!");
 		response.setStatus(false);
+		return response;
+	}
+	
+	public Response retriveUsers(String s){
+		Response response = new Response();
+		List<UserEntity> entity = null;
+		if(s != null) {
+			entity = userRepo.findByFirstName(s);
+		} else {
+			entity = userRepo.findAll();
+		}
+		List<User> user = entity.stream()
+				.map(e -> new User(e.getFirstName(), e.getLastName(), e.getAddress(), e.getEmail(), e.getPhone(), e.getUsername(), e.getPassword(), e.getUserType()))
+				.collect(Collectors.toList());
+		response.setUser(user);
+		response.setMessage("OK");
+		response.setStatus(true);
 		return response;
 	}
 
