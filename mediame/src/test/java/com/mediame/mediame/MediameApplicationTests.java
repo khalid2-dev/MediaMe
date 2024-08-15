@@ -16,7 +16,7 @@ class MediameApplicationTests {
 	void contextLoads() {
 		
 		LOGGER.info("Testing TEST-1");
-		
+		 
 		assertEquals(true, true);
 		
 	}
