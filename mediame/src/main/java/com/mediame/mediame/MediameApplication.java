@@ -1,20 +1,11 @@
 package com.mediame.mediame;
 
-import jakarta.persistence.EntityManager;
-
-import org.hibernate.engine.spi.SessionImplementor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
-
 import com.mediame.mediame.utility.DBConnectionTest;
 
 @SpringBootApplication
@@ -25,9 +16,13 @@ import com.mediame.mediame.utility.DBConnectionTest;
 @EnableConfigurationProperties(JpaProperties.class)
 //@Import(HibernateJpaConfiguration.class)
 public class MediameApplication {
+	
+	public static Logger LOGGER = LoggerFactory.getLogger(MediameApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(MediameApplication.class, args);
+		
+		LOGGER.info("Starting MediameApplication App ...");
 		
 		DBConnectionTest testDB = new DBConnectionTest();
 		testDB.testDB();

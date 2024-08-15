@@ -2,6 +2,8 @@ package com.mediame.mediame.controller;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ import com.mediame.mediame.service.UserServiceImpl;
 @RestController
 @ComponentScan("com.mediame.mediame.service.UserServiceImpl")
 public class UserController {
+	
+	Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
 	private UserServiceImpl userService;
@@ -67,6 +71,7 @@ public class UserController {
 	
 	@GetMapping(value = {"/allUsers", "/allUsers/{str}"})
 	public ResponseEntity<Response> retrieveAllUsers(@PathVariable(required = false) String str){
+		LOGGER.info("Entring /allUsers");
 		Response response = userService.retriveUsers(str);
 		return new ResponseEntity(response, HttpStatus.OK);
 	}
